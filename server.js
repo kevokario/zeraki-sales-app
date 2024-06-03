@@ -3,7 +3,6 @@ const path = require('path');
 const jsonServer = require('json-server');
 const cors = require('cors');
 
-
 const app = express();
 
 // Serve Angular application from the 'dist' directory
@@ -19,13 +18,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
-const PORT= 3000; // Use the provided environment port or default to 3000
-app.listen(PORT, () => {
-  const host = app.address().address;
+const PORT =  3000; // Use the provided environment port or default to 3000
+const server = app.listen(PORT, () => {
+  const host = server.address().address;
   const actualHost = host === '::' ? 'localhost' : host; // Handle IPv6 '::' to 'localhost'
-  const url = `https://${actualHost}:${PORT}`;
+  const url = `http://${actualHost}:${PORT}`; // Use http instead of https
   console.log(`Express server is running on ${url}`);
   console.log(`Server is running on port ${PORT}`);
 });
-
-
