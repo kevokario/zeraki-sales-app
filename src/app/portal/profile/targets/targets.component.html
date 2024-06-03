@@ -1,0 +1,130 @@
+<div class="row">
+  <div class="col-sm-9 col-md-11 mx-auto">
+    <div class="card mt-4 rounded-0">
+      <div class="card-header">
+        <div class="d-flex flex-row align-items-center justify-content-between">
+          <div class="fw-600 mb-0 card-title">
+            @if(isShowSetTarget){
+            Set Target
+          } @else {
+            My Targets
+          }</div>
+          <button class="btn btn-outline-primary btn-sm" (click)="toggleTargetView()">
+            @if(isShowSetTarget){
+              My Targets
+            } @else {
+              Set Target
+            }
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <ng-template [ngTemplateOutlet]="isShowSetTarget ? showSetTarget:showTargetList"></ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+========================
+  Section Target List
+========================
+ -->
+
+<ng-template #showTargetList>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover mb-0">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Product</th>
+        <th>Target</th>
+        <th>Collected Signups</th>
+        <th>Start Date</th>
+        <th>Due Date</th>
+        <th>Status</th>
+<!--        <th></th>-->
+      </tr>
+      </thead>
+      <tbody>
+        @for (target of targets; track target.id; let index = $index){
+          <tr>
+            <td>{{index+1}}</td>
+            <td>{{target.product?.productName}}</td>
+            <td>{{ target.target }}</td>
+            <td>Compute Me!!</td>
+            <td>{{target.startDate | date}}</td>
+            <td>{{target.dueDate | date}}</td>
+            <td>{{target.status}}%</td>
+<!--            <td></td>-->
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="8">
+              No Targets set just yet
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</ng-template>
+
+
+<!--
+========================
+  Section Target List
+========================
+ -->
+<ng-template #showSetTarget>
+  <form [formGroup]="targetForm" (ngSubmit)="setTarget()" class="row">
+    <div class="mb-3 col-sm-6">
+      <label for="product" class="form-label">
+        Select Product
+      </label>
+      <select id="product" class="form-select" formControlName="product">
+        <option value="">Select Product</option>
+        @for (product of products;track product.id){
+          <option [value]="product.id">{{product.productName}}</option>
+        }
+      </select>
+      @if(isSubmitted && control['product'].invalid){
+        <div class="text-danger">Product is required</div>
+      }
+    </div>
+
+    <div class="col-sm-6 mb-3">
+      <label for="target" class="form-label">Target </label>
+      <input type="text" class="form-control" id="target" name="target" formControlName="target" placeholder="target"/>
+      @if(isSubmitted && control['target'].invalid){
+        <div class="text-danger">
+          @if(control['target']?.errors?.['required']){
+            Target value is required
+          } @else {
+            provide only digits
+          }
+        </div>
+      }
+    </div>
+
+    <div class="col-sm-6 mb-3">
+      <label for="target" class="form-label">Start Date </label>
+      <input type="date" class="form-control" id="startDate" name="startDate" formControlName="startDate" placeholder="Date"/>
+      @if(isSubmitted && control['startDate'].invalid){
+        <div class="text-danger">Start Date is required</div>
+      }
+    </div>
+
+    <div class="col-sm-6 mb-3">
+      <label for="target" class="form-label">Due Date </label>
+      <input type="date" class="form-control" id="dueDate" formControlName="dueDate" placeholder="Due Date"/>
+      @if(isSubmitted && control['dueDate'].invalid){
+        <div class="text-danger">Due Date is required</div>
+      }
+    </div>
+
+    <div class="col-12 text-end">
+      <button class="btn btn-sm btn-primary">Set Target</button>
+    </div>
+  </form>
+</ng-template>

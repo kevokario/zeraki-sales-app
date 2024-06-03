@@ -1,0 +1,56 @@
+.full-screen{
+  width:100%;
+  height: 100vh;
+  background-color: rgba(0,0,0 ,5%);
+
+
+  .has-background{
+    background-image: url("/assets/images/money-img.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-position: right;
+    opacity: 0.9;
+  }
+
+}
+
+.auth-card{
+  min-width: 460px;
+}
+
+.center-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.app-title{
+  display: initial;
+}
+.app-title-sm{
+  display: none;
+}
+@media(max-width: 768px) {
+
+
+  .has-background, .app-title{
+    display: none;
+  }
+  .app-title-sm{
+    display: initial;
+  }
+  .has-ui{
+    width: 100%;
+    height: 100vh;
+    background-image: url("/assets/images/money-img.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .auth-card{
+    min-width: initial;
+  }
+}

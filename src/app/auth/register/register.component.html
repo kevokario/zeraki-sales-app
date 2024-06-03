@@ -1,0 +1,131 @@
+
+
+<div class="container">
+
+  <div class="row px-1">
+    <div class="col-sm-8 mx-auto">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="fw-600 text-center mt-2 mb-3"> Register</h4>
+          <form [formGroup]="registerForm" (ngSubmit)="register()" class="row">
+            <div class="mb-3 col-sm-6">
+              <label class="form-label" for="firstName">First Name </label>
+              <input type="text"
+                     id="firstName"
+                     class="form-control"
+                     placeholder="first name"
+                     name="fName"
+                     formControlName="fName"
+              >
+              @if(submitted && control['fName']?.errors){
+                <div class="text-danger">
+                  First name is required
+                </div>
+              }
+            </div>
+            <div class=" mb-3 col-sm-6">
+              <label class="form-label" for="lastName">Last Name </label>
+              <input type="text"
+                     id="lastName"
+                     class="form-control"
+                     placeholder="last name"
+                     name="lName"
+                     formControlName="lName"
+              >
+              @if(submitted && control['lName']?.errors){
+                <div class="text-danger">
+                  Last name is required
+                </div>
+              }
+            </div>
+
+            <div class=" mb-3 col-sm-6">
+              <label class="form-label" for="email">Email </label>
+              <input type="text" id="email" class="form-control"
+                     name="email" formControlName="email"
+                     placeholder="Email Address"
+              />
+              @if(submitted && control['email'].invalid){
+                <div class="text-danger" >
+                  @if(control['email']?.errors?.['required']){
+                    Email is required
+                  } @else {
+                    Provide Valid Email
+                  }
+                </div>
+              }
+            </div>
+
+            <div class=" mb-3 col-sm-6">
+              <label class="form-label" for="phone">Phone Number </label>
+              <input type="text"  id="phone" class="form-control"
+                     placeholder="07&times;&times; &times;&times;&times; &times;&times;&times;"
+                     name="phoneNumber"
+                     formControlName="phoneNumber"
+              >
+              @if(submitted && control['phoneNumber']?.errors){
+                <div class="text-danger">
+                  @if(control['phoneNumber']?.errors?.['required']){
+                    Phone Number is required
+                  } @else if (control['phoneNumber']?.errors?.['pattern']){
+                    Provide Valid Phone Number
+                  }@else{
+                    Provide Phone Number with 10 digits
+                  }
+                </div>
+              }
+            </div>
+
+            <div class=" mb-3 col-sm-6">
+              <label class="form-label" for="password">Password </label>
+              <input type="password"
+                     id="password"
+                     class="form-control"
+                     placeholder="password"
+                     name="password"
+                     formControlName="password"
+              />
+              @if(submitted && control['password']?.errors){
+                <div class="text-danger">
+                  Password is required
+                </div>
+              }
+            </div>
+
+            <div class=" mb-3 col-sm-6">
+              <label class="form-label" for="passwordConfirm">Confirm Password </label>
+              <input type="password"  id="passwordConfirm"
+                     name="confirmPassword"
+                     class="form-control"
+                     placeholder="confirm password"
+                     formControlName="confirmPassword"
+              />
+              @if(submitted && control['confirmPassword']?.errors){
+                <div class="text-danger">
+                  @if(control['confirmPassword']?.errors?.['required']){
+                    This field is required
+                  } @else {
+                    Passwords do not match
+                  }
+                </div>
+              }
+            </div>
+
+            <div class="col-sm-12">
+              <button [disabled]="isRegistering" class="btn btn-primary w-100 mb-3">
+                @if(isRegistering){
+                  <i class="fas fa-spin fa-spinner"></i>
+                } @else {
+                  Register
+                }
+              </button>
+              <p class="mb-0 text-center">Already have an account ? Login <a routerLink="/auth/login">here</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

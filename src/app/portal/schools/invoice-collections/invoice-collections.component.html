@@ -1,0 +1,197 @@
+<div class="row">
+  <div class="col-sm-9 col-md-11 mx-auto mt-3">
+
+    <h4 class="fw-bold text-capitalize">INV/{{invoice?.id}}/2024</h4>
+
+    <div class="row text-capitalize">
+      <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-3">
+        <div class="card p-10px rounded-0 card-body">
+          <div class="d-flex flex-row align-items-center">
+            <div>
+              <span class="fa-stack fa-2xl" style="vertical-align: top;">
+                <i class="fa-regular fa-square fa-stack-2x"></i>
+                <i class="fa-solid fa-school-flag fa-stack-1x"></i>
+              </span>
+            </div>
+            <div class="flex-grow-1">
+              <div class="d-flex flex-column align-items-end">
+                <span class="fw-bold">School </span>
+                <small>{{invoice?.school?.name}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-3">
+        <div class="card p-10px rounded-0 card-body">
+          <div class="d-flex flex-row align-items-center">
+            <div>
+              <span class="fa-stack fa-2xl" style="vertical-align: top;">
+                <i class="fa-regular fa-square fa-stack-2x"></i>
+                <i class="fa-solid fa-luggage-cart fa-stack-1x"></i>
+              </span>
+            </div>
+            <div class="flex-grow-1">
+              <div class="d-flex flex-column align-items-end">
+                <span class="fw-bold">Product</span>
+                <small>{{ invoice?.product?.productName }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-3">
+        <div class="card p-10px rounded-0 card-body">
+          <div class="d-flex flex-row align-items-center">
+            <div>
+              <span class="fa-stack fa-2xl" style="vertical-align: top;">
+                <i class="fa-regular fa-square fa-stack-2x"></i>
+                <i class="fa-solid fa-coins fa-stack-1x"></i>
+              </span>
+            </div>
+            <div class="flex-grow-1">
+              <div class="d-flex flex-column align-items-end">
+                <span class="fw-bold"> Balance</span>
+                @if(invoice){
+                  <small>{{(invoice.invoiceAmount - invoice.paidAmount)  |currency:'KSh '}}</small>
+
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-sm-6 col-md-6  col-lg-3 mb-3">
+        <div class="card p-10px rounded-0 card-body">
+          <div class="d-flex flex-row align-items-center">
+            <div>
+              <span class="fa-stack fa-2xl" style="vertical-align: top;">
+                <i class="fa-regular fa-square fa-stack-2x"></i>
+                <i class="fa-solid fa-piggy-bank fa-stack-1x"></i>
+              </span>
+            </div>
+            <div class="flex-grow-1">
+              <div class="d-flex flex-column align-items-end">
+                <span class="fw-bold">Collected</span>
+                <small>{{invoice?.paidAmount | currency:'KSh '}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--
+    ====================
+    Invoices Section
+    ====================
+    -->
+    <div class="card my-3  rounded-0">
+      <div class="card-header">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="card-title mb-0 fw-bold">
+            @if(isShowCollectionList){
+              INV/{{invoice?.id}}/2024 : Collections
+            } @else {
+              INV/{{invoice?.id}}/2024 : Record Collection
+            }
+          </div>
+          <button (click)="toggleShowCollectionList()" class="btn btn-sm btn-outline-primary">
+            @if(isShowCollectionList){
+              Make Collection
+            } @else {
+              View Collections
+            }
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <ng-template [ngTemplateOutlet]="isShowCollectionList ? showCollectionListSection : showAddCollectionSection"></ng-template>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!--
+=============================
+  Collection List Section
+=============================
+-->
+<ng-template #showCollectionListSection>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover mb-0">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Collection Date</th>
+        <th>Collected Amount</th>
+        <th>Collected By</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      @for(collection of invoice?.collections; track collection.id;let i = $index){
+        <tr>
+          <td>COLL/{{collection?.id}}/2024</td>
+          <td>{{collection.collectionDate | date}}</td>
+          <td>{{collection.amount| currency :'KSh '}}</td>
+          <td>{{collection?.user?.fName}} {{collection?.user?.lName}}</td>
+          <td>
+            {{ i % 3 == 0 ? 'Bounced Cheque':'Completed' }}
+          </td>
+          <td>
+            <button title="print" class="btn btn-sm btn-outline-success">
+              <i class="fa fa-file"></i>
+            </button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="6">No Collections found</td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+
+</ng-template>
+<!--
+=============================
+  Add Collection  Section
+=============================
+-->
+<ng-template #showAddCollectionSection>
+  <form [formGroup]="collectionForm" (ngSubmit)="recordCollection()">
+    <div class="mb-3">
+      <label for="date" class="form-label">Collection Date</label>
+      <input type="date" id="date" formControlName="collectionDate" class="form-control">
+      @if (isSubmitted && control['collectionDate'].invalid){
+        <div class="text-danger">Collection Date is required</div>
+      }
+    </div>
+    <div class="mb-3">
+      <label for="amount" class="form-label">Collected Amount</label>
+      <input type="text" id="amount" class="form-control" formControlName="amount" placeholder="Collected Amount">
+      @if (isSubmitted && control['amount'].invalid){
+        <div class="text-danger">
+        @if(control['amount'].errors?.['required']){
+          Amount is required
+        } @else {
+          Provide valid amount
+        }
+        </div>
+      }
+    </div>
+    <div class="text-end">
+      <button class="btn btn-primary">
+        Record Collection
+      </button>
+    </div>
+  </form>
+</ng-template>

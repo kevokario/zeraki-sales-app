@@ -1,0 +1,30 @@
+<app-sidenav [showSidebar]="showSidebar" (toggleSidebarEvt)="toggleSidebar()"></app-sidenav>
+
+<div class="content" [class]="showSidebar ? 'show-sidebar':'remove-sidebar'">
+
+  <app-top-nav [currentUser]="currentUser" (toggleSidebarEvt)="toggleSidebar()" (logoutEvt)="logout()"></app-top-nav>
+
+  <div class="container-fluid py-2 m-h-100 bg-tainted">
+    <router-outlet/>
+
+    <!-- Offcanvas Sidebar
+    <div class="offcanvas offcanvas-start" id="demo">
+      <div class="offcanvas-header">
+        <h1 class="offcanvas-title">Heading</h1>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body">
+        <p>Some text lorem ipsum.</p>
+        <p>Some text lorem ipsum.</p>
+        <button class="btn btn-secondary" type="button">A Button</button>
+      </div>
+    </div>
+
+    <!- Button to open the offcanvas sidebar ->
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+      Open Offcanvas Sidebar
+    </button>
+    -->
+
+  </div>
+</div>

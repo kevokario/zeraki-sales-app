@@ -1,0 +1,39 @@
+<div [class]="showSidebar ? 'display-sidebar':'hide-sidebar'" class="my-sidebar">
+
+  <ul class="nav flex-column">
+    <li class=" nav-brand">
+      <a class="nav-link active">
+        <span class="nav-icon">
+          <span class="fa-stack" style="vertical-align: top;">
+            <i class="fa-regular fa-square fa-stack-2x"></i>
+            <i class="fa-solid fa-z fa-stack-1x"></i>
+          </span>
+        </span>
+        Zeraki Sales App <span class="pull-right ms-5 pointer-cursor close-navbar" (click)="toggleSidebar()">&times;</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/home/dashboard']" [routerLinkActive]="['active']">
+        <span class="nav-icon">
+          <span class="fa-stack" style="vertical-align: top;">
+            <i class="fa-regular fa-square fa-stack-2x"></i>
+            <i class="fa-solid fa-home fa-stack-1x"></i>
+          </span>
+        </span>
+        Home
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" [routerLink]="['/home/schools']" [routerLinkActive]="['active']">
+        <span class="nav-icon">
+          <span class="fa-stack" style="vertical-align: top;">
+            <i class="fa-regular fa-square fa-stack-2x"></i>
+            <i class="fa-solid fa-school-flag fa-stack-1x"></i>
+          </span>
+        </span>
+        Schools
+      </a>
+    </li>
+
+  </ul>
+</div>

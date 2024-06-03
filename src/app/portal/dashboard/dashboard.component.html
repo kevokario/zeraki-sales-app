@@ -1,0 +1,144 @@
+<div class="row">
+  <div class="col-sm-9 col-md-11 mx-auto mt-3">
+    <h4 class="fw-bold text-capitalize">Welcome Back...</h4>
+
+    <div class="row mb-5 text-capitalize">
+      <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-3">
+        <div class="card p-10px rounded-0 card-body">
+          <div class="d-flex flex-row align-items-center">
+            <div>
+              <span class="fa-stack fa-2xl text-primary-emphasis " style="vertical-align: top;">
+                <i class="fa-regular fa-square fa-stack-2x"></i>
+                <i class="fa-solid fa-piggy-bank fa-stack-1x"></i>
+              </span>
+            </div>
+            <div class="flex-grow-1">
+              <div class="d-flex flex-column align-items-end">
+                <span class="fw-bold text-primary-emphasis">Collections</span>
+                <small>{{totalCollections | currency:'KSh '}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-3">
+        <div class="card p-10px rounded-0 card-body">
+          <div class="d-flex flex-row align-items-center">
+            <div>
+              <span class="fa-stack text-info-emphasis fa-2xl" style="vertical-align: top;">
+                <i class="fa-regular fa-square fa-stack-2x"></i>
+                <i class="fa-solid fa-calendar-plus fa-stack-1x"></i>
+              </span>
+            </div>
+            <div class="flex-grow-1">
+              <div class="d-flex flex-column align-items-end">
+                <span class="fw-bold text-info-emphasis">Sign-Ups</span>
+                <small>{{userSignups}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-3">
+        <div class="card p-10px rounded-0 card-body">
+          <div class="d-flex flex-row align-items-center">
+            <div>
+              <span class="fa-stack text-success-emphasis fa-2xl" style="vertical-align: top;">
+                <i class="fa-regular fa-square fa-stack-2x"></i>
+                <i class="fa-solid fa-coins fa-stack-1x"></i>
+              </span>
+            </div>
+            <div class="flex-grow-1">
+              <div class="d-flex flex-column align-items-end">
+                <span class="fw-bold text-success-emphasis"> Total Revenue</span>
+                <small>{{totalRevenue|currency :'KSh '}}</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-sm-6 col-md-6  col-lg-3 mb-3">
+        <div class="card p-10px rounded-0 card-body">
+          <div class="d-flex flex-row align-items-center">
+            <div>
+              <span class="fa-stack text-danger-emphasis fa-2xl" style="vertical-align: top;">
+                <i class="fa-regular fa-square fa-stack-2x"></i>
+                <i class="fa-solid fa-wave-square fa-stack-1x"></i>
+              </span>
+            </div>
+            <div class="flex-grow-1">
+              <div class="d-flex flex-column align-items-end">
+                <span class="fw-bold text-danger-emphasis">Bounced cheques</span>
+                <small>{{bouncedCheques}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h5>Revenue BreakDown</h5>
+    <div class="row mb-5 text-capitalize">
+
+      @for(productRevenue of revenueBreakDown; track productRevenue.product){
+        <div  class=" col-sm-4 col-md-4 col-lg-4 mb-3">
+          <div class="card p-10px rounded-0 card-body">
+            <div class="d-flex flex-row align-items-center">
+              <div>
+                <span class="fa-stack fa-2xl text-primary-emphasis " style="vertical-align: top;">
+                  <i class="fa-regular fa-square fa-stack-2x"></i>
+                  <i class="fa-solid fa-z fa-stack-1x"></i>
+                </span>
+              </div>
+              <div class="flex-grow-1">
+                <div class="d-flex flex-column align-items-center">
+                  <span class="fw-bold text-primary-emphasis">{{ productRevenue.product }}</span>
+                  <small>{{productRevenue.totalRevenue | currency:'KSh '}}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+    </div>
+
+
+    <div class="row">
+
+      <div  class=" col-sm-6 col-md-6 mb-3">
+        <h5>Target Breakdown</h5>
+        <div class="card p-10px rounded-0 card-body">
+          <div>
+
+            <canvas id="overallUserTargets">{{overallUserTargetsChart}}</canvas>
+
+          </div>
+        </div>
+
+
+      </div>
+      <div  class=" col-sm-6 col-md-6 mb-3">
+        <h5>Signup Breakdown</h5>
+        <div class="card p-10px rounded-0 card-body">
+          <div style="min-height: 250px;">
+      <canvas id="signUpBreakDownChart" style="width: 100%; height: 100%;">{{signUpBreakDownChart}}</canvas>
+    </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+

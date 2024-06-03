@@ -1,0 +1,132 @@
+<div class="row">
+  <div class="col-sm-9 mt-5 col-md-11 mx-auto">
+    <div class="card rounded-0">
+      <div class="card-header">
+        <div class="card-title mb-0">My Profile</div>
+      </div>
+      @if(!editProfile){
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <label >First Name</label>
+              <p class="fw-bold">{{currentUser?.fName}}</p>
+            </div>
+            <div class="col-sm-12">
+              <label >Last Name</label>
+              <p class="fw-bold">{{currentUser?.lName}}</p>
+            </div>
+            <div class="col-sm-12 ">
+              <label >Email</label>
+              <p class="fw-bold">{{currentUser?.email}}</p>
+            </div>
+            <div class="col-sm-12">
+              <label > Phone</label>
+              <p class="fw-bold">{{currentUser?.phoneNumber}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer text-end bg-white">
+          <button (click)="initEdit()" class="btn btn-sm btn-outline-primary me-1">Edit</button>
+        </div>
+      } @else {
+        <div class="card-body">
+          <div class="row">
+
+            <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" class="col-sm-12">
+              <div class="form-group mb-3">
+                <label for="fName">First Name </label>
+
+                  <input type="text"
+                         id="fName"
+                         placeholder="your names"
+                         class="form-control"
+                         name="name"
+                         formControlName="fName"
+                         >
+                @if(isSubmitted && control['fName'].invalid){
+                <div class="text-danger" >
+                  @if(control['name']?.errors?.['required']){
+                    First name is required!
+                  }
+                </div>
+                }
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="name">Last Name </label>
+
+                  <input type="text"
+                         id="name"
+                         placeholder="your names"
+                         class="form-control"
+                         name="name"
+                         formControlName="lName"
+                  >
+                @if(isSubmitted && control['lName'].invalid){
+                  <div class="text-danger" >
+                    @if(control['lName']?.errors?.['required']){
+                      Last name is required!
+                    }
+                  </div>
+                }
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="email">Email </label>
+
+                  <input type="email"
+                         id="email"
+                         class="form-control"
+                         placeholder="Your email"
+                         name="email"
+                         formControlName="email"
+                        >
+                @if(isSubmitted && control['email'].invalid){
+                <div class="text-danger">
+                  @if(control['email']?.errors?.['required']){
+                    Email is required
+                  } @else {
+                    Provide a valid email
+                  }
+                </div>
+                }
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="phone">Phone </label>
+                  <input type="text"
+                         id="phone"
+                         class="form-control"
+                         placeholder="07&times;&times; &times;&times;&times; &times;&times;&times;"
+                         name="phone"
+                         formControlName="phoneNumber"/>
+
+
+
+                @if(isSubmitted && control['phoneNumber']?.errors){
+                  <div class="text-danger">
+                    @if(control['phoneNumber']?.errors?.['required']){
+                      Phone Number is required
+                    } @else if (control['phoneNumber']?.errors?.['pattern']){
+                      Provide Valid Phone Number
+                    }@else{
+                      Provide Phone Number with 10 digits
+                    }
+                  </div>
+                }
+              </div>
+
+              <div class="form-group text-end">
+                <button [disabled]="isSubmitting" type="button" (click)="editProfile = false" class="btn btn-sm btn-outline-primary">Cancel</button>
+                <button [disabled]="isSubmitting" class="btn btn-sm ms-1 btn-primary">Update</button>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

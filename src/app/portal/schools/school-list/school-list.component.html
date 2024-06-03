@@ -1,0 +1,199 @@
+<div class="row">
+  <div class="col-sm-9 col-md-11 mx-auto">
+    <div class="card mt-3  rounded-0 mb-3">
+      <div class="card-header">
+        <div class="d-flex flex-row align-items-center justify-content-between">
+          <div class="mb-0 fw-bold card-title">
+            @if(isShowSchoolList){
+              Signed up schools
+            } @else {
+              Sign up a School
+            }
+          </div>
+          <button class="btn btn-sm btn-outline-primary" (click)="toggleSchoolList()">
+            @if(isShowSchoolList){
+              Add School
+            } @else {
+              Signed up schools
+            }</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <ng-template [ngTemplateOutlet]="isShowSchoolList ? showSchoolList:showAddSchool"></ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+========================
+  School List Section
+========================
+-->
+<ng-template #showSchoolList>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover mb-0">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>School Type</th>
+        <th>County</th>
+        <th>Sign-up Date</th>
+        <th>Contact Person</th>
+        <th>Contact Phone</th>
+        <th>Signed Up By</th>
+        <th>Products</th>
+        <th>Balance</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (school of schools; track school.id; let i = $index){
+          <tr>
+            <td>{{i+1}}</td>
+            <td>{{school.name}}</td>
+            <td>{{school.schoolType?.type}}</td>
+            <td>{{school.county?.name}}</td>
+            <td>{{school.registrationDate | date}}</td>
+            <td>{{school.contactPerson}}</td>
+            <td>{{school.contactPhone}}</td>
+            <td>{{school.user?.fName +' '+school.user?.lName }}</td>
+            <td>
+
+
+                    <span class="badge rounded-pill"
+                          [ngClass]="{
+                  'bg-success':school.product?.productName?.trim()?.includes('Analytics'),
+                  'bg-danger':school.product?.productName?.trim()?.includes('Finance'),
+                  'bg-info':school.product?.productName?.trim()?.includes('table')
+                }">
+                      {{school.product?.productName}}
+                    </span>
+
+
+            </td>
+            <td>{{school.balance | currency : 'KSh '}}</td>
+            <td>
+             <div class="btn-group">
+               <!--button title="Edit" class="btn btn-sm btn-outline-success me-1">
+                 <i class="fas fa-edit"></i>
+               </button-->
+               <button title="view" routerLink="/home/schools/{{school.id}}" class="btn btn-sm btn-success">
+                 <i class="fas fa-eye"></i>
+               </button>
+             </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="11">
+              There are no schools signed up.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</ng-template>
+
+<!--
+========================
+  Add School Section
+========================
+-->
+<ng-template #showAddSchool>
+  <form [formGroup]="schoolForm" (ngSubmit)="signUpSchool()"  class="row">
+    <div class="col-sm-6 mb-3">
+      <label for="schoolName" class="form-label">School Name </label>
+      <input type="text" id="schoolName" class="form-control" name="school name" formControlName="name" placeholder="School Name">
+      @if(isSubmitted && control['name'].invalid){
+        <div class="text-danger">
+          School Name is required
+        </div>
+      }
+    </div>
+    <div class="col-sm-6 mb-3">
+      <label for="schoolName" class="form-label">School Type </label>
+      <select id="schoolType" class="form-select" formControlName="schoolType">
+        <option value="">Select School Type</option>
+        @for(schoolType of schoolTypes; track schoolType.id){
+          <option [attr.value]="schoolType.id">{{schoolType.type}}</option>
+        }
+      </select>
+      @if(isSubmitted && control['schoolType'].invalid){
+        <div class="text-danger">
+          School Type is required
+        </div>
+      }
+    </div>
+    <div class="col-sm-6 mb-3">
+      <label for="county" class="form-label">County </label>
+      <select id="county" class="form-select" formControlName="county">
+        <option value="">Select County</option>
+        @for(county of counties; track county.id){
+          <option [attr.value]="county.id">{{county.name}}</option>
+        }
+      </select>
+
+      @if(isSubmitted && control['county'].invalid){
+        <div class="text-danger">
+          County is required
+        </div>
+      }
+    </div>
+    <div class="col-sm-6 mb-3">
+      <label for="signUpDate" class="form-label">Signup Date </label>
+      <input type="date" id="signUpDate" class="form-control" formControlName="signupDate" placeholder="Signup Date">
+      @if(isSubmitted && control['signupDate'].invalid){
+        <div class="text-danger">
+          SignUp Date is required
+        </div>
+      }
+    </div>
+    <div class="col-sm-6 mb-3">
+      <label for="contactPerson" class="form-label">Contact Person</label>
+      <input type="text" id="contactPerson" class="form-control" formControlName="contactPerson" placeholder="Contact Person name's">
+      @if(isSubmitted && control['contactPerson'].invalid){
+        <div class="text-danger">
+          Contact Person Names are required
+        </div>
+      }
+    </div>
+    <div class="col-sm-6 mb-3">
+      <label for="contactPhone" class="form-label">Contact Persons Phone </label>
+      <input type="text" id="contactPhone" formControlName="contactPhone" class="form-control" placeholder="07&times;&times; &times;&times;&times; &times;&times;&times;">
+      @if(isSubmitted && control['contactPhone'].invalid){
+        <div class="text-danger">
+         @if(control['contactPhone'].errors?.['required']){
+           Contact Person Phone number is required
+         } @else if (control['contactPhone'].errors?.['pattern']) {
+           provide valid phone number
+         } @else {
+           provide a phone number with 10 digits
+         }
+        </div>
+      }
+    </div>
+    <div class="col-sm-12 mb-3">
+      <label for="schoolName" class="form-label">Products </label>
+      <select id="products" formControlName="products" class="form-select">
+        <option value="">Select Products</option>
+        @for(product of products; track product.id){
+          <option [attr.value]="product.id">{{product.productName}}</option>
+        }
+      </select>
+      @if(isSubmitted && control['products'].invalid){
+        <div class="text-danger">
+         Select at least one product
+        </div>
+      }
+    </div>
+
+    <div class="col-am-12 text-end">
+      <button class="btn btn-primary">
+        Signup School
+      </button>
+    </div>
+  </form>
+</ng-template>

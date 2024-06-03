@@ -1,0 +1,237 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "fName": "Kelvin",
+      "lName": "Kario",
+      "email": "kevokario@mail.com",
+      "phoneNumber": "0704219247",
+      "password": "123"
+    },
+    {
+      "id": 2,
+      "fName": "Sean Njeri",
+      "lName": "Kario ",
+      "email": "seankario@gmail.com",
+      "phoneNumber": "0704219247",
+      "password": "123",
+      "phone": "0704219247"
+    },
+    {
+      "id": 3,
+      "fName": "Collins",
+      "lName": "Mundia",
+      "email": "collinsMwangi@gmail.com",
+      "phoneNumber": "0113678048",
+      "password": "123"
+    },
+    {
+      "id": 4,
+      "fName": "Sam",
+      "lName": "Doe",
+      "email": "samdoe@mail.com",
+      "phoneNumber": "1231231231",
+      "password": "123"
+    },
+    {
+      "fName": "jane",
+      "lName": "doe",
+      "email": "janedoe@gmail.com",
+      "phoneNumber": "1111111111",
+      "password": "123",
+      "id": 5
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "productName": "Zeraki Analytics"
+    },
+    {
+      "id": 2,
+      "productName": "Zeraki Finance"
+    },
+    {
+      "id": 3,
+      "productName": "Zeraki Timetable"
+    }
+  ],
+  "schoolTypes": [
+    {
+      "id": 1,
+      "type": "primary"
+    },
+    {
+      "id": 2,
+      "type": "secondary"
+    },
+    {
+      "id": 3,
+      "type": "I.G.C.S.E"
+    }
+  ],
+  "schools": [
+    {
+      "contactPerson": "kqwet",
+      "contactPhone": "0711111166",
+      "countyId": "3",
+      "name": "new school",
+      "productId": 3,
+      "registrationDate": "2024-06-13",
+      "schoolTypeId": "2",
+      "userId": 2,
+      "id": 1
+    },
+    {
+      "contactPerson": "kqwet",
+      "contactPhone": "0711111166",
+      "countyId": "3",
+      "name": "new school 1",
+      "productId": 2,
+      "registrationDate": "2024-06-27",
+      "schoolTypeId": "1",
+      "userId": 2,
+      "id": 2
+    },
+    {
+      "contactPerson": "kqwet",
+      "contactPhone": "0711111166",
+      "countyId": "5",
+      "name": "new school 2",
+      "productId": 1,
+      "registrationDate": "2024-06-13",
+      "schoolTypeId": "2",
+      "userId": 2,
+      "id": 3
+    }
+  ],
+  "invoices": [
+    {
+      "completionStatus": "in-complete",
+      "creationDate": "2024-06-03",
+      "dueDate": "2024-06-21",
+      "invoiceAmount": "12000",
+      "paidAmount": 0,
+      "productId": "1",
+      "schoolId": 1,
+      "userId": 2,
+      "id": 1
+    },
+    {
+      "completionStatus": "in-complete",
+      "creationDate": "2024-06-05",
+      "dueDate": "2024-06-07",
+      "invoiceAmount": "45000",
+      "paidAmount": 0,
+      "productId": "2",
+      "schoolId": 1,
+      "userId": 2,
+      "id": 2
+    },
+    {
+      "completionStatus": "in-complete",
+      "creationDate": "2024-06-29",
+      "dueDate": "2024-06-13",
+      "invoiceAmount": "4500",
+      "paidAmount": 0,
+      "productId": "2",
+      "schoolId": 2,
+      "userId": 2,
+      "id": 3
+    },
+    {
+      "completionStatus": "in-complete",
+      "creationDate": "2024-06-05",
+      "dueDate": "2024-06-29",
+      "invoiceAmount": "12000",
+      "paidAmount": 0,
+      "productId": "3",
+      "schoolId": 1,
+      "userId": 2,
+      "id": 4
+    }
+  ],
+  "collections": [
+    {
+      "amount": "3000",
+      "collectionDate": "2024-06-03",
+      "userId": 2,
+      "invoiceId": 1,
+      "id": 1
+    },
+    {
+      "amount": "1000",
+      "collectionDate": "2024-06-03",
+      "userId": 2,
+      "invoiceId": 1,
+      "id": 2
+    },
+    {
+      "amount": "2500",
+      "collectionDate": "2024-06-01",
+      "userId": 2,
+      "invoiceId": 1,
+      "id": 3
+    }
+  ],
+  "targets": [
+    {
+      "dueDate": "2024-06-13",
+      "productId": 1,
+      "startDate": "2024-06-06",
+      "target": "23",
+      "userId": 2,
+      "id": 1
+    },
+    {
+      "dueDate": "2024-06-29",
+      "productId": "2",
+      "startDate": "2024-06-07",
+      "target": "123",
+      "userId": 2,
+      "id": 2
+    }
+  ],
+  "counties": [
+    {
+      "name": "Mombasa",
+      "id": 1
+    },
+    {
+      "name": "Kwale",
+      "id": 2
+    },
+    {
+      "name": "Kilifi",
+      "id": 3
+    },
+    {
+      "name": "Tana River",
+      "id": 4
+    },
+    {
+      "name": "Lamu",
+      "id": 5
+    },
+    {
+      "name": "Taita-Taveta",
+      "id": 6
+    },
+    {
+      "name": "Garissa",
+      "id": 7
+    },
+    {
+      "name": "Wajir",
+      "id": 8
+    },
+    {
+      "name": "Mandera",
+      "id": 9
+    },
+    {
+      "name": "Nairobi",
+      "id": 10
+    }
+  ]
+}

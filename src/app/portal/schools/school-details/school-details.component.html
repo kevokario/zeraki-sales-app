@@ -1,0 +1,229 @@
+<div class="row">
+  <div class="col-sm-9 col-md-11 mx-auto mt-3">
+    <h4 class="fw-bold text-capitalize">{{school?.name}}</h4>
+
+    <div class="row text-capitalize">
+      <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-3">
+        <div class="card p-10px rounded-0 card-body">
+          <div class="d-flex flex-row align-items-center">
+            <div>
+              <span class="fa-stack fa-2xl" style="vertical-align: top;">
+                <i class="fa-regular fa-square fa-stack-2x"></i>
+                <i class="fa-solid fa-school-flag fa-stack-1x"></i>
+              </span>
+            </div>
+            <div class="flex-grow-1">
+              <div class="d-flex flex-column align-items-end">
+                <span class="fw-bold">School Type</span>
+                <small>{{school?.schoolType?.type}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-3">
+      <div class="card p-10px rounded-0 card-body">
+        <div class="d-flex flex-row align-items-center">
+          <div>
+              <span class="fa-stack fa-2xl" style="vertical-align: top;">
+                <i class="fa-regular fa-square fa-stack-2x"></i>
+                <i class="fa-solid fa-location-pin-lock fa-stack-1x"></i>
+              </span>
+          </div>
+          <div class="flex-grow-1">
+            <div class="d-flex flex-column align-items-end">
+              <span class="fw-bold">County</span>
+              <small>{{school?.county?.name}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="col-6 col-sm-6 col-md-6 col-lg-3 mb-3">
+      <div class="card p-10px rounded-0 card-body">
+        <div class="d-flex flex-row align-items-center">
+          <div>
+              <span class="fa-stack fa-2xl" style="vertical-align: top;">
+                <i class="fa-regular fa-square fa-stack-2x"></i>
+                <i class="fa-solid fa-phone fa-stack-1x"></i>
+              </span>
+          </div>
+          <div class="flex-grow-1">
+            <div class="d-flex flex-column align-items-end">
+              <span class="fw-bold"> {{school?.contactPerson}}</span>
+              <small>{{school?.contactPhone}}</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="col-6 col-sm-6 col-md-6  col-lg-3 mb-3">
+      <div class="card p-10px rounded-0 card-body">
+        <div class="d-flex flex-row align-items-center">
+          <div>
+              <span class="fa-stack fa-2xl" style="vertical-align: top;">
+                <i class="fa-regular fa-square fa-stack-2x"></i>
+                <i class="fa-solid fa-money-bills fa-stack-1x"></i>
+              </span>
+          </div>
+          <div class="flex-grow-1">
+            <div class="d-flex flex-column align-items-end">
+              <span class="fw-bold">Balance</span>
+              <small>{{schoolBalance | currency:'KSh '}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+    <!--
+    ====================
+    Invoices Section
+    ====================
+    -->
+    <div class="card my-3  rounded-0">
+      <div class="card-header">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="card-title mb-0 fw-bold">
+            @if(isShowInvoiceList){
+              Invoices
+            } @else {
+              Add Invoice
+            }
+          </div>
+          <button (click)="toggleShowInvoiceList()" class="btn btn-sm btn-outline-primary">
+            @if(isShowInvoiceList){
+              Add Invoice
+            } @else {
+              Invoice List
+            }
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <ng-template [ngTemplateOutlet]="isShowInvoiceList ? showInvoiceListSection : showAddInvoiceSection"></ng-template>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!--
+   ====================
+   Invoice List Section
+   ====================
+-->
+
+<ng-template #showInvoiceListSection>
+  <div class="div table-responsive">
+    <table class="table table-bordered mb-0 table-hover">
+      <thead>
+      <tr>
+        <th>Invoice Number</th>
+        <th>Product Item</th>
+        <th>Creation Date</th>
+        <th>Due Date</th>
+        <th>Invoice Amount</th>
+        <th>Paid Amount</th>
+        <th>Balance</th>
+        <th>Completion Status</th>
+        <th>Days Left</th>
+        <th>Created By</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      @for(invoice of schoolInvoices; track invoice.id){
+        <tr>
+          <td>INV/{{invoice.id}}/2024</td>
+          <td>
+            <span class="badge rounded-pill"
+                  [ngClass]="{
+                  'bg-success':invoice.product?.productName?.trim()?.includes('Analytics'),
+                  'bg-danger':invoice.product?.productName?.trim()?.includes('Finance'),
+                  'bg-info':invoice.product?.productName?.trim()?.includes('table')
+                }">{{invoice.product?.productName}}</span>
+          </td>
+          <td>{{invoice.creationDate|date}}</td>
+          <td>{{invoice.dueDate|date}}</td>
+          <td>{{invoice.invoiceAmount|currency :'KSh '}}</td>
+          <td>{{invoice.paidAmount|currency :'KSh '}}</td>
+          <td>{{(invoice.invoiceAmount - invoice.paidAmount) |currency:'KSh '}}</td>
+          <td>{{invoiceStatus(invoice.invoiceAmount,invoice.paidAmount)}}</td>
+          <td>{{dateDifference(invoice.creationDate, invoice.dueDate)}}</td>
+          <td>{{invoice.user?.fName}} {{invoice.user?.lName}}</td>
+          <td>
+            <button
+              routerLink="/home/schools/{{school?.id}}/collections/{{invoice?.id}}"
+              class="btn btn-sm btn-outline-success">
+              Collections
+            </button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="10">No invoices found</td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+</ng-template>
+
+<!--
+   ====================
+   Add Invoice Section
+   ====================
+-->
+<ng-template #showAddInvoiceSection>
+  <form [formGroup]="invoiceForm" (ngSubmit)="addInvoice()" class="row">
+    <div class="col-sm-6 mb-3">
+      <label for="product" class="form-label">Invoice Item</label>
+      <select name="product" id="product" formControlName="product" class="form-select">
+        <option value="">Select Invoice Item</option>
+       @for(product of products; track product.id){
+         <option [attr.value]="product.id">{{product.productName}}</option>
+       }
+      </select>
+      @if(isSubmitted && control['product'].invalid){
+        <div class="text-danger">Invoice item is required</div>
+      }
+    </div>
+    <div class="col-sm-6 mb-3">
+      <label for="creationDate" class="form-label">Creation Date</label>
+      <input type="date" id="creationDate" formControlName="creationDate" class="form-control ">
+      @if(isSubmitted && control['creationDate'].invalid){
+        <div class="text-danger">Creation date is required</div>
+      }
+    </div>
+    <div class="col-sm-6 mb-3">
+      <label for="dueDate" class="form-label">Due Date</label>
+      <input type="date" id="dueDate" formControlName="dueDate" class="form-control ">
+      @if(isSubmitted && control['dueDate'].invalid){
+        <div class="text-danger">Due date is required</div>
+      }
+    </div>
+    <div class="col-sm-6 mb-3">
+      <label for="amount" class="form-label">Amount</label>
+      <input type="text" class="form-control" id="amount" formControlName="amount">
+      @if(isSubmitted && control['amount'].invalid){
+        <div class="text-danger">
+          @if(control['amount'].errors?.['required']){
+            Amount is required
+          } @else {
+            Amount is invalid
+          }
+        </div>
+      }
+    </div>
+
+    <div class="col-sm-12 text-end">
+      <button class="btn btn-primary">Create Invoice</button>
+    </div>
+  </form>
+</ng-template>
+

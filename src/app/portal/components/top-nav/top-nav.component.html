@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-sm border-bottom border-1" style="height: 72px">
+  <div class="container-fluid">
+      <span class="d-flex flex-row align-items-center">
+        <button (click)="toggleSidebar()" class="btn">=</button>
+      </span>
+    <span class="d-flex flex-row align-items-center">
+        <div class="dropdown">
+          <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
+            {{currentUser?.fName}} {{currentUser?.lName}}
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/home/profile">Profile</a></li>
+            <li><a class="dropdown-item" routerLink="/home/profile/targets">My Targets</a></li>
+            <li class="dropdown-divider"></li>
+            <li><a class="dropdown-item pointer-cursor" (click)="logout()" >Logout</a></li>
+          </ul>
+        </div>
+      </span>
+  </div>
+</nav>
