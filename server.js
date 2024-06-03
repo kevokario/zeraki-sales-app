@@ -23,7 +23,7 @@ const PORT= 3000; // Use the provided environment port or default to 3000
 app.listen(PORT, () => {
   const host = app.address().address;
   const actualHost = host === '::' ? 'localhost' : host; // Handle IPv6 '::' to 'localhost'
-  const url = `https://${actualHost}:${port}`;
+  const url = `https://${actualHost}:${PORT}`;
   console.log(`Express server is running on ${url}`);
   console.log(`Server is running on port ${PORT}`);
 });
