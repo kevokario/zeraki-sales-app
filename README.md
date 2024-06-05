@@ -2,6 +2,8 @@
 
 This is a responsive sales agent dashboard designed to facilitate the management of school accounts, invoicing, and collections. The dashboard provides comprehensive functionality and user access to various modules, including the Dashboard Module and Schools Module.
 
+Link to live application https://zeraki-sales-app.onrender.com
+
 ---
 
 ### Requirements

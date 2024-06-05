@@ -137,7 +137,7 @@ export class DashboardComponent implements OnInit,OnDestroy {
 
         let items = userSchools.filter((userSchool)=>userSchool.productId == target.productId).length;
 
-        target.status = Math.round(items/userSchools.length *100);
+        target.status = Math.round(items/target.target *100);
         labels.push(target.product?.productName||"");
         data.push(target.status);
 

@@ -149,6 +149,17 @@
       "schoolId": 1,
       "userId": 2,
       "id": 4
+    },
+    {
+      "completionStatus": "in-complete",
+      "creationDate": "2024-06-05",
+      "dueDate": "2024-08-05",
+      "invoiceAmount": "23500",
+      "paidAmount": 0,
+      "productId": "3",
+      "schoolId": 2,
+      "userId": 1,
+      "id": 5
     }
   ],
   "collections": [
@@ -172,6 +183,13 @@
       "userId": 2,
       "invoiceId": 1,
       "id": 3
+    },
+    {
+      "amount": "1200",
+      "collectionDate": "2024-06-05",
+      "userId": 1,
+      "invoiceId": 3,
+      "id": 4
     }
   ],
   "targets": [
@@ -190,6 +208,22 @@
       "target": "123",
       "userId": 2,
       "id": 2
+    },
+    {
+      "dueDate": "2024-06-27",
+      "productId": "2",
+      "startDate": "2024-06-05",
+      "target": "12",
+      "userId": 1,
+      "id": 3
+    },
+    {
+      "dueDate": "2024-09-05",
+      "productId": "1",
+      "startDate": "2024-06-05",
+      "target": "21",
+      "userId": 1,
+      "id": 4
     }
   ],
   "counties": [

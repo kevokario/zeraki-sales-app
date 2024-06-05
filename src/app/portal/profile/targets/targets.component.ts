@@ -92,15 +92,21 @@ export class TargetsComponent implements OnInit,OnDestroy{
       error(err: any): void {
       },
       next:(targets)=>{
-        this.targets = targets;
-        if(this.userSchools.length > 0){
-          this.targets.map((target)=>{
 
+
+          targets.map((target)=>{
+            if(this.userSchools.length > 0){
               let items = this.userSchools.filter((userSchool)=>userSchool.productId == target.productId).length;
-             target.status = Math.round(items/this.userSchools.length *100);
+            target.status = Math.round(items/target.target*100);
+            target.collection = items;
+            } else {
+              target.status = 0;
+              target.collection = 0;
+            }
           });
-        }
 
+
+        this.targets = targets;
 
       }
     });
