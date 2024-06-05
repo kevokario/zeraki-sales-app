@@ -25,6 +25,6 @@ export class DashboardService {
   getUserSignups(userId:number|undefined):Observable<ISchool[]>{
     const params:URLSearchParams = new URLSearchParams();
     params.append('userId',String(userId));
-    return this.http.get<ISchool[]>(`${environment.apiUrl}/schools`);
+    return this.http.get<ISchool[]>(`${environment.apiUrl}/schools?${ params.toString() }`);
   }
 }
