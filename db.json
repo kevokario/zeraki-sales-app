@@ -103,6 +103,50 @@
       "schoolTypeId": "2",
       "userId": 2,
       "id": 3
+    },
+    {
+      "contactPerson": "a",
+      "contactPhone": "0111111111",
+      "countyId": "10",
+      "name": "q",
+      "productId": 1,
+      "registrationDate": "2024-11-11",
+      "schoolTypeId": "2",
+      "userId": 1,
+      "id": 4
+    },
+    {
+      "contactPerson": "john",
+      "contactPhone": "0711111166",
+      "countyId": "10",
+      "name": "new school 4",
+      "productId": 1,
+      "registrationDate": "2024-06-07",
+      "schoolTypeId": "3",
+      "userId": 2,
+      "id": 5
+    },
+    {
+      "contactPerson": "john",
+      "contactPhone": "0711111166",
+      "countyId": "10",
+      "name": "new school 5",
+      "productId": 2,
+      "registrationDate": "2024-06-07",
+      "schoolTypeId": "2",
+      "userId": 2,
+      "id": 6
+    },
+    {
+      "contactPerson": "John Doe",
+      "contactPhone": "0111111111",
+      "countyId": "10",
+      "name": "Rungiri",
+      "productId": 1,
+      "registrationDate": "2024-06-07",
+      "schoolTypeId": "2",
+      "userId": 2,
+      "id": 7
     }
   ],
   "invoices": [
@@ -160,6 +204,17 @@
       "schoolId": 2,
       "userId": 1,
       "id": 5
+    },
+    {
+      "completionStatus": "in-complete",
+      "creationDate": "2024-06-19",
+      "dueDate": "2024-06-28",
+      "invoiceAmount": "3400",
+      "paidAmount": 0,
+      "productId": "1",
+      "schoolId": 4,
+      "userId": 1,
+      "id": 6
     }
   ],
   "collections": [
@@ -190,6 +245,27 @@
       "userId": 1,
       "invoiceId": 3,
       "id": 4
+    },
+    {
+      "amount": "1400",
+      "collectionDate": "2024-06-20",
+      "userId": 1,
+      "invoiceId": 6,
+      "id": 5
+    },
+    {
+      "amount": "25000",
+      "collectionDate": "2024-06-07",
+      "userId": 2,
+      "invoiceId": 2,
+      "id": 6
+    },
+    {
+      "amount": "15000",
+      "collectionDate": "2024-06-10",
+      "userId": 2,
+      "invoiceId": 2,
+      "id": 7
     }
   ],
   "targets": [
